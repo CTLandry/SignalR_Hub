@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SignalR_Client.ViewModel"
+             x:Class="SignalR_Client.Views.Chat_View">
+    <ContentPage.BindingContext>
+        <vm:Chat_ViewModel></vm:Chat_ViewModel>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Text="Signal R Chat Session"
+                   VerticalOptions="FillAndExpand" 
+                   HorizontalOptions="CenterAndExpand"
+                   TextColor="CornflowerBlue"
+                   FontSize="Medium"
+                   Grid.Row="0"/>
+
+            <ListView
+                VerticalOptions="Start" 
+                HorizontalOptions="CenterAndExpand"
+                ItemsSource="{Binding PropertyMessages}"
+                Grid.Row="1"/>
+
+            <Entry
+                VerticalOptions="FillAndExpand" 
+                HorizontalOptions="FillAndExpand"
+                TextColor="Black"
+                Text="{Binding PropertyMessageToSend}"
+                Placeholder="Enter Message To Send"
+                Grid.Row="2"/>
+
+            <Button
+                VerticalOptions="FillAndExpand" 
+                HorizontalOptions="FillAndExpand"
+                Text="Send Message"
+                TextColor="Black"
+                BackgroundColor="CornflowerBlue"
+                Command="{Binding SendMessageCommand}"
+                Grid.Row="3"/>
+           
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
