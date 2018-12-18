@@ -12,5 +12,10 @@ namespace SignalR_Hub
         {
             await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
+
+        public override Task OnConnectedAsync()
+        {
+            return base.OnConnectedAsync();
+        }
     }
 }

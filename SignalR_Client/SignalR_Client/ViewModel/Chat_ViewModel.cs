@@ -32,12 +32,22 @@ namespace SignalR_Client.ViewModel
 
         public Chat_ViewModel()
         {
-            //Excluded for security this is your localhost or hosted website
-            ip = ConnectionData.localConnection;
-            port = ConnectionData.localPort;
+            PropertyMessages = new ObservableCollection<string>();
 
+            //Excluded for security this is your localhost or hosted website
+
+            //LOCAL
+            //ip = ConnectionData.localConnection;
+            //port = ConnectionData.localPort;
+
+            //hubConnection = new HubConnectionBuilder()
+            //    .WithUrl($"https://{ip}:{port}/chatHub")
+            //    .Build();
+
+            //AZURE
+            ip = ConnectionData.azureConnection;
             hubConnection = new HubConnectionBuilder()
-                .WithUrl($"http://{ip}:{port}/chatHub")
+                .WithUrl($"{ip}/chat")
                 .Build();
 
             Task.Run(async () => await Connect());
@@ -67,7 +77,7 @@ namespace SignalR_Client.ViewModel
         {
             get
             {
-                return _SendMessage ?? (_SendMessage = new Command(async (contact) => await SendHubMessage()));
+                return _SendMessage ?? (_SendMessage = new Command(async () => await SendHubMessage()));
             }
         }
 
@@ -76,6 +86,7 @@ namespace SignalR_Client.ViewModel
             try
             {
                 await hubConnection.InvokeAsync("SendMessage", spoofedUser, PropertyMessageToSend);
+                PropertyMessageToSend = "";
             }
             catch (Exception e)
             {

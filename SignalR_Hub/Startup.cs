@@ -34,7 +34,7 @@ namespace SignalR_Hub
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSignalR();
-
+            
             
         }
 
@@ -55,14 +55,21 @@ namespace SignalR_Hub
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseSignalR(routes => { routes.MapHub<ChatHub>("/chatHub"); });
+            app.UseSignalR(routes => { routes.MapHub<ChatHub>("/chat"); });
+            app.UseMvc();
 
-            //app.UseMvc(routes =>
-            //{
-            //    routes.MapRoute(
-            //        name: "default",
-            //        template: "{controller=Home}/{action=Index}/{id?}");
-            //});
+            //    app.UseMvc(routes =>
+            //    {
+            //        routes.MapRoute(
+            //            "Default", // Route name
+            //            "{controller}/{action}/{id}", // URL with parameters*
+            //            new
+            //            {
+            //                controller = "DefaultController",
+            //                action = "Index"
+            //            }
+            //        );
+            //    });
         }
     }
 }
